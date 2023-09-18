@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     formulario.addEventListener('submit', (e) => {
       e.preventDefault();
       const empleado = {
-        companyId:document.getElementById('idCompania').value,
-        email: document.getElementById('email').value,
-        employeeId: document.getElementById('idEmpleado').value,
-        firstName: document.getElementById('nombre').value,
-        lastName: document.getElementById('apellido').value,
+        companyId: 3,
+        email: 'aaaa@adasd.com',
+        employeeId: 1006,
+        firstName: 'example@firstName',
+        lastName: 'example@lastName',
       }
       asyncCallPost(JSON.stringify(empleado));
     });
@@ -33,8 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         xhr.onload = function() { //4
           if (xhr.status == 200) {
-            let data = JSON.parse(this.response);
-            resolve(data);
+            if(!dato){
+              let data = JSON.parse(this.response);
+              resolve(data);
+            }
+            else{
+              resolve(xhr.response);
+            }
           }else{
             reject(new Error('error en la conexion'));
           }
