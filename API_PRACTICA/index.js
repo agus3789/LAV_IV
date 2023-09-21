@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const listasEmpleados = document.getElementById("listasDeEmpleados");
     const btnGET = document.getElementById("getAPI");
     const formulario = document.getElementById("formulario");
+    const formDELETE = document.getElementById("formDELETE");
 
     btnGET.onclick = () =>{
       asyncCall();
@@ -20,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
       asyncCallPost(JSON.stringify(empleado));
     });
 
+    formDELETE.addEventListener('submit',(e) => {
+      e.preventDefault();
+      const employeeId = document.getElementById('idDELETE');
+      
+      asyncCallDelete(employeeId.value);
+    });
+
     function PedidoAPI(pedido, url, dato) {
       return new Promise( (resolve,reject) => {
     
@@ -27,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function () {
   
         xhr.open(pedido, url); //2
         
-        if(dato){
+        if(dato || pedido === 'DELETE'){
           xhr.setRequestHeader('Content-Type', 'application/json');
         }
 
         xhr.onload = function() { //4
           if (xhr.status == 200) {
-            if(!dato){
+            if(!dato && pedido !== 'DELETE'){
               let data = JSON.parse(this.response);
               resolve(data);
             }
@@ -41,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
               resolve(xhr.response);
             }
           }else{
-            reject(new Error('error en la conexion'));
+            reject(new Error('Error en la conexion'));
           }
         };
         
@@ -110,6 +118,15 @@ document.addEventListener('DOMContentLoaded', function () {
       };
     }
     
+    async function asyncCallDelete(employeeId) {
+        try{ 
+            PedidoAPI('DELETE', `https://utn-lubnan-api-1.herokuapp.com/api/Employee/${employeeId}`).then(responseData => {
+              console.log(responseData);
+            });
+      }catch(error){
+        console.log(error);
+      };
+    }
 
   
 });
