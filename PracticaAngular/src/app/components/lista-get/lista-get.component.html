@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">UserId</th>
+            <th scope="col">Body</th>
+            <th scope="col">title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let user of userList">
+            <td>{{user.id}}</td>
+            <td>{{user.userId}}</td>
+            <td>{{user.body}}</td>
+            <td>{{user.title}}</td>
+        </tr>
+    </tbody>
+</table>

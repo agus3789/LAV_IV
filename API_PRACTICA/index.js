@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.onload = function() { //4
           if (xhr.status == 200) {
             if(!dato && pedido !== 'DELETE'){
+              console.log(this.response);
               let data = JSON.parse(this.response);
               resolve(data);
             }
